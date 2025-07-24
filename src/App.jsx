@@ -1,12 +1,11 @@
 import './App.css'
+import PomodoroTimer from './components/PomodoroTimer'
 
 function App() {
 
   return (
     <div className='bg-white'>
-      <h1 className='text-blue-800' >
-        Esto sera pomodora-app
-      </h1>
+      <PomodoroTimer />
     </div>
   )
 }
