@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useTimer from '../hooks/useTimer';
+import { usePomodoroConfig } from '../context/PomodoroContext';
+import Settings from './Settings';
 
 function formatTime(seconds) {
   const m = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -8,11 +10,18 @@ function formatTime(seconds) {
 }
 
 export default function PomodoroTimer() {
-  const { secondsLeft, isRunning, start, pause, reset } = useTimer();
+  const { durations } = usePomodoroConfig();
+  const [showSettings, setShowSettings] = useState(false);
+  const { secondsLeft, isRunning, start, pause, reset } = useTimer(durations.pomodoro * 60);
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-6">
-      <h1 className="text-4xl font-bold mb-4">Pomodoro</h1>
+      <div className="flex w-full justify-between items-center mb-2">
+        <h1 className="text-4xl font-bold">Pomodoro</h1>
+        <button onClick={() => setShowSettings(true)} title="Configuración" className="text-2xl p-2">
+          <span role="img" aria-label="configuración">⚙️</span>
+        </button>
+      </div>
       <div className="text-6xl font-mono mb-6" style={{ color: 'black' }}>{formatTime(secondsLeft)}</div>
       <div className="flex gap-4">
         {!isRunning ? (
@@ -22,6 +31,7 @@ export default function PomodoroTimer() {
         )}
         <button className="bg-gray-400 text-white px-4 py-2 rounded" onClick={reset}>Reiniciar</button>
       </div>
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
     </div>
   );
 }
