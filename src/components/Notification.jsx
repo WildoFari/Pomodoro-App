@@ -22,10 +22,10 @@ export default function Notification({ show, message, onClose }) {
       const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
       audio.play().catch(e => console.log('No se pudo reproducir el audio:', e));
 
-      // Auto-cerrar después de 5 segundos
+      // Auto-cerrar después de 10 segundos (más tiempo para notificación grande)
       const timer = setTimeout(() => {
         onClose();
-      }, 5000);
+      }, 10000);
 
       return () => clearTimeout(timer);
     }
@@ -34,21 +34,42 @@ export default function Notification({ show, message, onClose }) {
   if (!show) return null;
 
   return (
-    <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <span className="text-2xl mr-2">🔔</span>
-          <div>
-            <h3 className="font-bold">¡Sesión Completada!</h3>
-            <p className="text-sm">{message}</p>
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-3xl shadow-2xl max-w-4xl w-full mx-4 p-8 md:p-12">
+        <div className="text-center">
+          {/* Icono grande */}
+          <div className="text-8xl md:text-9xl mb-6 animate-bounce">
+            🔔
           </div>
+          
+          {/* Título principal */}
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+            ¡Sesión Completada!
+          </h1>
+          
+          {/* Mensaje */}
+          <p className="text-xl md:text-2xl mb-8 leading-relaxed">
+            {message}
+          </p>
+          
+          {/* Mensaje adicional */}
+          <p className="text-lg md:text-xl mb-8 text-green-100">
+            ¡Excelente trabajo! Es hora de tomar un descanso.
+          </p>
+          
+          {/* Botón de cierre */}
+          <button 
+            onClick={onClose}
+            className="bg-white text-green-600 px-8 py-4 rounded-full text-xl md:text-2xl font-bold hover:bg-green-50 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            ¡Entendido!
+          </button>
+          
+          {/* Contador de auto-cierre */}
+          <p className="text-sm text-green-200 mt-4">
+            Se cerrará automáticamente en 10 segundos
+          </p>
         </div>
-        <button 
-          onClick={onClose}
-          className="ml-4 text-white hover:text-gray-200 text-xl"
-        >
-          ×
-        </button>
       </div>
     </div>
   );
