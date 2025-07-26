@@ -5,6 +5,8 @@ const DEFAULT_DURATION = 25 * 60; // 25 minutos en segundos
 export default function useTimer(initialDuration = DEFAULT_DURATION) {
   const [secondsLeft, setSecondsLeft] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
   const intervalRef = useRef(null);
 
   const start = useCallback(() => {
@@ -17,6 +19,9 @@ export default function useTimer(initialDuration = DEFAULT_DURATION) {
           } else {
             clearInterval(intervalRef.current);
             setIsRunning(false);
+            // Mostrar notificación cuando termine
+            setNotificationMessage('¡Tu sesión Pomodoro ha terminado! ¡Toma un descanso!');
+            setShowNotification(true);
             return 0;
           }
         });
@@ -37,6 +42,11 @@ export default function useTimer(initialDuration = DEFAULT_DURATION) {
     setIsRunning(false);
   }, [initialDuration]);
 
+  const closeNotification = useCallback(() => {
+    setShowNotification(false);
+    setNotificationMessage('');
+  }, []);
+
   // Limpiar el intervalo al desmontar
   useEffect(() => {
     return () => clearInterval(intervalRef.current);
@@ -45,8 +55,11 @@ export default function useTimer(initialDuration = DEFAULT_DURATION) {
   return {
     secondsLeft,
     isRunning,
+    showNotification,
+    notificationMessage,
     start,
     pause,
     reset,
+    closeNotification,
   };
 }

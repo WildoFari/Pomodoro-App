@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useTimer from '../hooks/useTimer';
 import { usePomodoroConfig } from '../context/PomodoroContext';
 import Settings from './Settings';
+import Notification from './Notification';
 
 function formatTime(seconds) {
   const m = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -12,7 +13,16 @@ function formatTime(seconds) {
 export default function PomodoroTimer() {
   const { durations } = usePomodoroConfig();
   const [showSettings, setShowSettings] = useState(false);
-  const { secondsLeft, isRunning, start, pause, reset } = useTimer(durations.pomodoro * 60);
+  const { 
+    secondsLeft, 
+    isRunning, 
+    showNotification, 
+    notificationMessage,
+    start, 
+    pause, 
+    reset, 
+    closeNotification 
+  } = useTimer(durations.pomodoro * 60);
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-6">
@@ -32,6 +42,12 @@ export default function PomodoroTimer() {
         <button className="bg-gray-400 text-white px-4 py-2 rounded" onClick={reset}>Reiniciar</button>
       </div>
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}
+      
+      <Notification 
+        show={showNotification}
+        message={notificationMessage}
+        onClose={closeNotification}
+      />
     </div>
   );
 }
