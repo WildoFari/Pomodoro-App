@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 
 const DEFAULT_DURATION = 25 * 60; // 25 minutos en segundos
 
-export default function useTimer(initialDuration = DEFAULT_DURATION) {
+export default function useTimer(initialDuration = DEFAULT_DURATION, onComplete = null) {
   const [secondsLeft, setSecondsLeft] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -22,12 +22,16 @@ export default function useTimer(initialDuration = DEFAULT_DURATION) {
             // Mostrar notificación cuando termine
             setNotificationMessage('¡Tu sesión Pomodoro ha terminado! ¡Toma un descanso!');
             setShowNotification(true);
+            // Llamar al callback si existe
+            if (onComplete) {
+              onComplete();
+            }
             return 0;
           }
         });
       }, 1000);
     }
-  }, [isRunning]);
+  }, [isRunning, onComplete]);
 
   const pause = useCallback(() => {
     if (isRunning) {
