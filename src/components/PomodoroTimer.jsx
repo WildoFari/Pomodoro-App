@@ -86,7 +86,7 @@ export default function PomodoroTimer() {
         </div>
       )}
 
-      <div className="text-6xl font-mono mb-6" style={{ color: 'black' }}>{formatTime(secondsLeft)}</div>
+      <div className="text-6xl font-mono mb-6 text-black">{formatTime(secondsLeft)}</div>
       
       <div className="flex gap-4">
         {!isRunning ? (
