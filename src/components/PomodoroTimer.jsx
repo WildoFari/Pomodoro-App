@@ -136,23 +136,92 @@ export default function PomodoroTimer() {
   // Vista normal cuando no está corriendo
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-6">
-      <div className="flex w-full justify-between items-center mb-2">
-        <h1 className="text-4xl font-bold">Pomodoro</h1>
-        <div className="flex gap-2">
-          <button 
-            onClick={() => setShowTaskList(!showTaskList)} 
-            title="Lista de Tareas" 
-            className="text-2xl p-2 hover:bg-gray-100 rounded"
-          >
-            <span role="img" aria-label="tareas">📋</span>
-          </button>
-          <button 
-            onClick={() => setShowSettings(true)} 
-            title="Configuración" 
-            className="text-2xl p-2 hover:bg-gray-100 rounded"
-          >
-            <span role="img" aria-label="configuración">⚙️</span>
-          </button>
+      {/* Header mejorado */}
+      <div className="w-full max-w-4xl">
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+          <div className="flex items-center justify-between">
+            {/* Logo y título */}
+            <div className="flex items-center gap-4">
+              <div className="bg-gradient-to-br from-red-500 to-red-600 p-3 rounded-xl">
+                <span className="text-3xl">🍅</span>
+              </div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Pomodoro Timer</h1>
+                <p className="text-gray-600 text-sm md:text-base">Mantén el enfoque, maximiza la productividad</p>
+              </div>
+            </div>
+
+            {/* Botones de acción */}
+            <div className="flex items-center gap-3">
+              {/* Botón de estadísticas */}
+              <button 
+                title="Ver Estadísticas" 
+                className="p-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 group"
+              >
+                <div className="text-xl group-hover:scale-110 transition-transform duration-200">
+                  📊
+                </div>
+                <span className="text-xs block mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Stats
+                </span>
+              </button>
+
+              {/* Botón de tareas */}
+              <button 
+                onClick={() => setShowTaskList(!showTaskList)} 
+                title="Lista de Tareas" 
+                className={`p-3 rounded-xl transition-all duration-200 group ${
+                  showTaskList 
+                    ? 'text-blue-600 bg-blue-50' 
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                }`}
+              >
+                <div className="text-xl group-hover:scale-110 transition-transform duration-200">
+                  📋
+                </div>
+                <span className="text-xs block mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Tareas
+                </span>
+              </button>
+
+              {/* Botón de configuración */}
+              <button 
+                onClick={() => setShowSettings(true)} 
+                title="Configuración" 
+                className="p-3 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-xl transition-all duration-200 group"
+              >
+                <div className="text-xl group-hover:scale-110 transition-transform duration-200">
+                  ⚙️
+                </div>
+                <span className="text-xs block mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Config
+                </span>
+              </button>
+
+              {/* Separador visual */}
+              <div className="w-px h-8 bg-gray-200 mx-2"></div>
+
+              {/* Indicador de estado */}
+              <div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-lg">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-green-700">Listo</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Información adicional en el header */}
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <div className="flex items-center gap-4">
+                <span>⏱️ Duración: {durations.pomodoro} min</span>
+                <span>☕ Descanso: {durations.shortBreak} min</span>
+                <span>🌙 Descanso largo: {durations.longBreak} min</span>
+              </div>
+              <div className="text-right">
+                <span className="font-medium">Hoy: 0 pomodoros</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
