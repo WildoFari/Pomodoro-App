@@ -37,19 +37,31 @@ export default function PomodoroTimer() {
     closeNotification 
   } = useTimer(durations.pomodoro * 60, handlePomodoroComplete);
 
-  // Si está corriendo, mostrar pantalla completa
-  if (isRunning) {
+  // Si está corriendo o pausado, mostrar pantalla completa
+  if (isRunning || secondsLeft < durations.pomodoro * 60) {
     return (
       <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50">
         {/* Header minimalista */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white">🍅 Pomodoro</h1>
-          <button 
-            onClick={pause}
-            className="text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-full transition-all duration-200"
-          >
-            <span className="text-2xl">⏸️</span>
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Botón de pausar/reanudar */}
+            <button 
+              onClick={isRunning ? pause : start}
+              className="text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-full transition-all duration-200"
+            >
+              <span className="text-2xl">{isRunning ? '⏸️' : '▶️'}</span>
+            </button>
+            
+            {/* Botón para volver al inicio */}
+            <button 
+              onClick={reset}
+              className="text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-full transition-all duration-200"
+              title="Volver al inicio"
+            >
+              <span className="text-2xl">🏠</span>
+            </button>
+          </div>
         </div>
 
         {/* Tarea actual si existe */}
@@ -101,10 +113,10 @@ export default function PomodoroTimer() {
             {/* Botones de control */}
             <div className="flex gap-6 justify-center">
               <button 
-                onClick={pause}
+                onClick={isRunning ? pause : start}
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-full text-xl md:text-2xl font-bold transition-all duration-200 backdrop-blur-sm"
               >
-                ⏸️ Pausar
+                {isRunning ? '⏸️ Pausar' : '▶️ Reanudar'}
               </button>
               <button 
                 onClick={reset}
@@ -119,7 +131,7 @@ export default function PomodoroTimer() {
         {/* Footer con información */}
         <div className="absolute bottom-4 left-4 right-4 text-center">
           <p className="text-white text-lg opacity-80">
-            ¡Mantén el enfoque! 💪
+            {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
           </p>
         </div>
 
