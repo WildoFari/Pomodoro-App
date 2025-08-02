@@ -135,24 +135,24 @@ export default function PomodoroTimer() {
 
   // Vista normal cuando no está corriendo
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-6">
-      {/* Header mejorado */}
-      <div className="w-full max-w-4xl">
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header mejorado */}
+        <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             {/* Logo y título */}
             <div className="flex items-center gap-4">
-              <div className="bg-gradient-to-br from-red-500 to-red-600 p-3 rounded-xl">
-                <span className="text-3xl">🍅</span>
+              <div className="bg-gradient-to-br from-red-500 to-red-600 p-4 rounded-2xl shadow-lg">
+                <span className="text-4xl">🍅</span>
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Pomodoro Timer</h1>
-                <p className="text-gray-600 text-sm md:text-base">Mantén el enfoque, maximiza la productividad</p>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">Pomodoro Timer</h1>
+                <p className="text-gray-600 text-sm md:text-base lg:text-lg">Mantén el enfoque, maximiza la productividad</p>
               </div>
             </div>
 
             {/* Botones de acción */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               {/* Botón de estadísticas */}
               <button 
                 title="Ver Estadísticas" 
@@ -199,80 +199,125 @@ export default function PomodoroTimer() {
               </button>
 
               {/* Separador visual */}
-              <div className="w-px h-8 bg-gray-200 mx-2"></div>
+              <div className="w-px h-8 bg-gray-200 mx-2 hidden lg:block"></div>
 
               {/* Indicador de estado */}
-              <div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-lg">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-xl border border-green-200">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-sm font-medium text-green-700">Listo</span>
               </div>
             </div>
           </div>
 
           {/* Información adicional en el header */}
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <div className="flex items-center justify-between text-sm text-gray-600">
-              <div className="flex items-center gap-4">
-                <span>⏱️ Duración: {durations.pomodoro} min</span>
-                <span>☕ Descanso: {durations.shortBreak} min</span>
-                <span>🌙 Descanso largo: {durations.longBreak} min</span>
+          <div className="mt-6 pt-6 border-t border-gray-100">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-600">
+              <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <span>⏱️</span>
+                  <span className="font-medium">Duración: {durations.pomodoro} min</span>
+                </span>
+                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <span>☕</span>
+                  <span className="font-medium">Descanso: {durations.shortBreak} min</span>
+                </span>
+                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <span>🌙</span>
+                  <span className="font-medium">Descanso largo: {durations.longBreak} min</span>
+                </span>
               </div>
               <div className="text-right">
-                <span className="font-medium">Hoy: 0 pomodoros</span>
+                <span className="font-medium text-lg bg-blue-50 px-4 py-2 rounded-lg text-blue-700">
+                  Hoy: 0 pomodoros
+                </span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Mostrar tarea actual si existe */}
-      {currentTask && (
-        <div className="w-full max-w-md bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+        {/* Contenido principal centrado */}
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-8">
+          {/* Mostrar tarea actual si existe */}
+          {currentTask && (
+            <div className="w-full max-w-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 shadow-lg">
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-blue-800 mb-3 flex items-center justify-center gap-2">
+                  <span>🎯</span>
+                  <span>Tarea Actual</span>
+                </h3>
+                <p className="text-blue-900 mb-4 text-lg">{currentTask.text}</p>
+                <div className="flex justify-center items-center gap-3">
+                  <span className="text-sm text-blue-700 bg-white px-3 py-1 rounded-full">
+                    Pomodoros: {currentTask.completedPomodoros}/{currentTask.pomodoroCount}
+                  </span>
+                  <div className="flex gap-2">
+                    {[...Array(currentTask.pomodoroCount)].map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-4 h-4 rounded-full ${
+                          i < currentTask.completedPomodoros 
+                            ? 'bg-orange-500 shadow-md' 
+                            : 'bg-gray-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Temporizador principal */}
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-blue-800 mb-2">🎯 Tarea Actual</h3>
-            <p className="text-blue-900 mb-2">{currentTask.text}</p>
-            <div className="flex justify-center items-center gap-2">
-              <span className="text-sm text-blue-700">
-                Pomodoros: {currentTask.completedPomodoros}/{currentTask.pomodoroCount}
-              </span>
-              <div className="flex gap-1">
-                {[...Array(currentTask.pomodoroCount)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-3 h-3 rounded-full ${
-                      i < currentTask.completedPomodoros 
-                        ? 'bg-orange-500' 
-                        : 'bg-gray-300'
-                    }`}
-                  />
-                ))}
+            <div className="text-7xl md:text-8xl lg:text-9xl font-mono font-bold text-gray-800 mb-8 drop-shadow-lg">
+              {formatTime(secondsLeft)}
+            </div>
+            
+            {/* Barra de progreso */}
+            <div className="w-full max-w-md mx-auto mb-8">
+              <div className="bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
+                <div 
+                  className="bg-gradient-to-r from-red-500 to-red-600 h-full rounded-full transition-all duration-1000 ease-linear shadow-lg"
+                  style={{ 
+                    width: `${((durations.pomodoro * 60 - secondsLeft) / (durations.pomodoro * 60)) * 100}%` 
+                  }}
+                />
               </div>
             </div>
           </div>
+          
+          {/* Botones de control */}
+          <div className="flex gap-4 md:gap-6">
+            <button 
+              onClick={start}
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-2xl text-lg md:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              ▶️ Iniciar
+            </button>
+            <button 
+              onClick={reset}
+              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-8 py-4 rounded-2xl text-lg md:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              🔄 Reiniciar
+            </button>
+          </div>
         </div>
-      )}
 
-      <div className="text-6xl font-mono mb-6 text-black">{formatTime(secondsLeft)}</div>
-      
-      <div className="flex gap-4">
-        <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={start}>Iniciar</button>
-        <button className="bg-gray-400 text-white px-4 py-2 rounded" onClick={reset}>Reiniciar</button>
+        {/* Mostrar lista de tareas si está activada */}
+        {showTaskList && (
+          <div className="w-full mt-8">
+            <TaskList />
+          </div>
+        )}
+
+        {showSettings && <Settings onClose={() => setShowSettings(false)} />}
+        
+        <Notification 
+          show={showNotification}
+          message={notificationMessage}
+          onClose={closeNotification}
+        />
       </div>
-
-      {/* Mostrar lista de tareas si está activada */}
-      {showTaskList && (
-        <div className="w-full max-w-4xl mt-6">
-          <TaskList />
-        </div>
-      )}
-
-      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
-      
-      <Notification 
-        show={showNotification}
-        message={notificationMessage}
-        onClose={closeNotification}
-      />
     </div>
   );
 }
