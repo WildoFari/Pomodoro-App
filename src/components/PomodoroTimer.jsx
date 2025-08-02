@@ -150,34 +150,35 @@ export default function PomodoroTimer() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 w-full">
       {/* Header compacto para móvil */}
       <div className="bg-white shadow-lg md:hidden w-full">
-        <div className="flex items-center justify-between p-2 sm:p-3 md:p-4 w-full">
-          <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1">
-            <div className="bg-gradient-to-br from-red-500 to-red-600 p-1 sm:p-1.5 md:p-2 rounded-lg sm:rounded-xl flex-shrink-0">
-              <span className="text-base sm:text-lg md:text-2xl">🍅</span>
+        <div className="flex flex-col p-2 sm:p-3 md:p-4 w-full">
+          {/* Título principal centrado */}
+          <div className="flex items-center justify-center mb-2 sm:mb-3">
+            <div className="bg-gradient-to-br from-red-500 to-red-600 p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl shadow-md">
+              <span className="text-lg sm:text-xl md:text-2xl">🍅</span>
             </div>
-            <div className="min-w-0 flex-1">
-              <h1 className="text-sm sm:text-base md:text-lg font-bold text-gray-800 truncate">Pomodoro</h1>
-              <p className="text-xs text-gray-600 truncate">Mantén el enfoque</p>
+            <div className="ml-2 sm:ml-3">
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Pomodoro Timer</h1>
+              <p className="text-xs sm:text-sm text-gray-600 text-center">Mantén el enfoque</p>
             </div>
           </div>
           
-          {/* Botones de acción móvil */}
-          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 flex-shrink-0">
+          {/* Botones de acción centrados */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3">
             <button 
               onClick={() => setShowTaskList(!showTaskList)} 
-              className={`p-1 sm:p-1.5 md:p-2 rounded-lg transition-all duration-200 ${
+              className={`p-2 sm:p-2.5 md:p-3 rounded-lg transition-all duration-200 ${
                 showTaskList 
                   ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                  : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'
               }`}
             >
-              <span className="text-sm sm:text-base md:text-lg">📋</span>
+              <span className="text-base sm:text-lg md:text-xl">📋</span>
             </button>
             <button 
               onClick={() => setShowSettings(true)} 
-              className="p-1 sm:p-1.5 md:p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-lg transition-all duration-200"
+              className="p-2 sm:p-2.5 md:p-3 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-lg transition-all duration-200"
             >
-              <span className="text-sm sm:text-base md:text-lg">⚙️</span>
+              <span className="text-base sm:text-lg md:text-xl">⚙️</span>
             </button>
           </div>
         </div>
