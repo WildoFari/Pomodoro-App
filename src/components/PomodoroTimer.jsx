@@ -192,7 +192,8 @@ export default function PomodoroTimer() {
             {/* Logo y título */}
             <div className="flex items-center gap-4">
               <div className="bg-gradient-to-br from-red-500 to-red-600 p-4 rounded-2xl shadow-lg">
-                <span className="text-4xl">🍅</span>
+                <span className="hidden md:block text-4xl">🍅</span>
+                <span className="md:hidden text-sm">🍅</span>
               </div>
               <div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">Pomodoro Timer</h1>
