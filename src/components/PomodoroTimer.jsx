@@ -5,6 +5,7 @@ import { usePomodoroConfig } from '../context/PomodoroContext';
 import Settings from './Settings';
 import Notification from './Notification';
 import TaskList from './TaskList';
+import MotivationalQuote from './MotivationalQuote';
 
 function formatTime(seconds) {
   const m = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -130,6 +131,7 @@ export default function PomodoroTimer() {
 
         {/* Footer con información */}
         <div className="absolute bottom-4 left-4 right-4 text-center">
+
           <p className="text-white text-lg opacity-80">
             {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
           </p>
@@ -284,6 +286,17 @@ export default function PomodoroTimer() {
                 </span>
               </div>
             </div>
+            
+            {/* Frase motivadora en el header */}
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 border border-blue-100">
+                <MotivationalQuote 
+                  autoChange={true}
+                  changeInterval={30000}
+                  textColor="text-gray-700"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -372,6 +385,17 @@ export default function PomodoroTimer() {
             >
               🔄 Reiniciar
             </button>
+          </div>
+
+          {/* Frase motivadora */}
+          <div className="w-full max-w-md lg:max-w-lg mt-6 md:mt-8">
+            <div className="bg-white bg-opacity-80 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg border border-gray-100">
+              <MotivationalQuote 
+                context="starting"
+                textColor="text-gray-800"
+                changeInterval={20000}
+              />
+            </div>
           </div>
         </div>
 
