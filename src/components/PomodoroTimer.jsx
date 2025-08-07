@@ -186,84 +186,19 @@ export default function PomodoroTimer() {
       {/* Contenido principal */}
       <div className="w-full max-w-6xl mx-auto p-1 sm:p-2 md:p-4 lg:p-8">
         {/* Header desktop */}
-        <div className="hidden md:block bg-white border border-gray-100 rounded-lg p-6 mb-6">
+        <div className="hidden md:block bg-white border-b border-gray-100 p-4 mb-4">
           <div className="flex items-center justify-between">
             {/* Logo y título */}
-            <div className="flex items-center gap-4">
-              <span className="text-3xl">🍅</span>
-              <div>
-                <h1 className="text-2xl font-medium text-gray-900">Pomodoro Timer</h1>
-                <p className="text-gray-700 text-sm">Mantén el enfoque, maximiza la productividad</p>
-              </div>
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🍅</span>
+              <h1 className="text-xl font-medium text-gray-900">Pomodoro Timer</h1>
             </div>
 
             {/* Botones de acción */}
-            <div className="flex items-center gap-3">
-              {/* Botón de tareas */}
-              <button 
-                onClick={() => setShowTaskList(!showTaskList)} 
-                title="Lista de Tareas" 
-                className={`p-2 rounded-md transition-all duration-200 ${
-                  showTaskList 
-                    ? 'text-blue-600 bg-blue-50' 
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
-              >
-                <span className="text-lg">📋</span>
-              </button>
-
-              {/* Botón de configuración */}
-              <button 
-                onClick={() => setShowSettings(true)} 
-                title="Configuración" 
-                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-all duration-200"
-              >
-                <span className="text-lg">⚙️</span>
-              </button>
-
-              {/* Indicador de estado */}
-              <div className="flex items-center gap-2 px-3 py-1 bg-green-50 rounded-md">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-xs text-green-700">Listo</span>
-              </div>
-            </div>
+            <div className="flex items-center gap-2">
           </div>
 
-          {/* Información adicional en el header */}
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-700">
-              <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span>⏱️</span>
-                  <span className="font-medium">Duración: {durations.pomodoro} min</span>
-                </span>
-                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span>☕</span>
-                  <span className="font-medium">Descanso: {durations.shortBreak} min</span>
-                </span>
-                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span>🌙</span>
-                  <span className="font-medium">Descanso largo: {durations.longBreak} min</span>
-                </span>
-              </div>
-              <div className="text-right">
-                <span className="font-medium text-lg bg-blue-50 px-4 py-2 rounded-lg text-blue-700">
-                  Hoy: 0 pomodoros
-                </span>
-              </div>
-            </div>
-            
-            {/* Frase motivadora en el header */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 border border-blue-100">
-                <MotivationalQuote 
-                  autoChange={true}
-                  changeInterval={30000}
-                  textColor="text-gray-700"
-                />
-              </div>
-            </div>
-          </div>
+
         </div>
 
         {/* Información móvil compacta */}
