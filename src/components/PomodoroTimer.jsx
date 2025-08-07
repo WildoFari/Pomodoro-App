@@ -45,22 +45,22 @@ export default function PomodoroTimer() {
         {/* Header minimalista */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white">🍅 Pomodoro</h1>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {/* Botón de pausar/reanudar */}
             <button 
               onClick={isRunning ? pause : start}
-              className="text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-full transition-all duration-200"
+              className="text-white hover:bg-white hover:bg-opacity-10 p-2 rounded-lg transition-all duration-200"
             >
-              <span className="text-2xl">{isRunning ? '⏸️' : '▶️'}</span>
+              <span className="text-lg">{isRunning ? '⏸' : '▶'}</span>
             </button>
             
             {/* Botón para volver al inicio */}
             <button 
               onClick={reset}
-              className="text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-full transition-all duration-200"
+              className="text-white hover:bg-white hover:bg-opacity-10 p-2 rounded-lg transition-all duration-200"
               title="Volver al inicio"
             >
-              <span className="text-2xl">🏠</span>
+              <span className="text-lg">⌂</span>
             </button>
           </div>
         </div>
@@ -112,18 +112,18 @@ export default function PomodoroTimer() {
             </div>
 
             {/* Botones de control */}
-            <div className="flex gap-6 justify-center">
+            <div className="flex gap-4 justify-center">
               <button 
                 onClick={isRunning ? pause : start}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-full text-xl md:text-2xl font-bold transition-all duration-200 backdrop-blur-sm"
+                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20"
               >
-                {isRunning ? '⏸️ Pausar' : '▶️ Reanudar'}
+                {isRunning ? '⏸ Pausar' : '▶ Reanudar'}
               </button>
               <button 
                 onClick={reset}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-full text-xl md:text-2xl font-bold transition-all duration-200 backdrop-blur-sm"
+                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20"
               >
-                🔄 Reiniciar
+                ↺ Reiniciar
               </button>
             </div>
           </div>
@@ -372,18 +372,18 @@ export default function PomodoroTimer() {
           </div>
           
           {/* Botones de control */}
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-6 w-full max-w-xs md:max-w-sm lg:max-w-md">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full max-w-xs md:max-w-sm lg:max-w-md">
             <button 
               onClick={start}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="bg-white hover:bg-gray-50 text-gray-800 px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
             >
-              ▶️ Iniciar
+              ▶ Iniciar
             </button>
             <button 
               onClick={reset}
-              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="bg-white hover:bg-gray-50 text-gray-800 px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
             >
-              🔄 Reiniciar
+              ↺ Reiniciar
             </button>
           </div>
 
