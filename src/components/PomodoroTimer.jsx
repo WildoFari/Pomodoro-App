@@ -1,4 +1,12 @@
 import React, { useState } from 'react';
+import { 
+  FaPlay, 
+  FaPause, 
+  FaRedo, 
+  FaHome, 
+  FaCog, 
+  FaClipboardList 
+} from 'react-icons/fa';
 import useTimer from '../hooks/useTimer';
 import useTasks from '../hooks/useTasks';
 import { usePomodoroConfig } from '../context/PomodoroContext';
@@ -51,7 +59,7 @@ export default function PomodoroTimer() {
               onClick={isRunning ? pause : start}
               className="text-white hover:bg-white hover:bg-opacity-10 p-2 rounded-lg transition-all duration-200"
             >
-              <span className="text-lg">{isRunning ? '⏸' : '▶'}</span>
+              {isRunning ? <FaPause className="text-lg" /> : <FaPlay className="text-lg" />}
             </button>
             
             {/* Botón para volver al inicio */}
@@ -60,7 +68,7 @@ export default function PomodoroTimer() {
               className="text-white hover:bg-white hover:bg-opacity-10 p-2 rounded-lg transition-all duration-200"
               title="Volver al inicio"
             >
-              <span className="text-lg">⌂</span>
+              <FaHome className="text-lg" />
             </button>
           </div>
         </div>
@@ -115,15 +123,17 @@ export default function PomodoroTimer() {
             <div className="flex gap-4 justify-center">
               <button 
                 onClick={isRunning ? pause : start}
-                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20"
+                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20 flex items-center gap-2"
               >
-                {isRunning ? '⏸ Pausar' : '▶ Reanudar'}
+                {isRunning ? <FaPause /> : <FaPlay />}
+                {isRunning ? 'Pausar' : 'Reanudar'}
               </button>
               <button 
                 onClick={reset}
-                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20"
+                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20 flex items-center gap-2"
               >
-                ↺ Reiniciar
+                <FaRedo />
+                Reiniciar
               </button>
             </div>
           </div>
@@ -164,21 +174,21 @@ export default function PomodoroTimer() {
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setShowTaskList(!showTaskList)} 
-                              className={`p-2 rounded-md transition-all duration-200 ${
-                  showTaskList 
-                    ? 'text-blue-600 bg-blue-50' 
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
+              className={`p-2 rounded-md transition-all duration-200 ${
+                showTaskList 
+                  ? 'text-blue-600 bg-blue-50' 
+                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+              }`}
               title="Tareas"
             >
-              <span className="text-lg">📋</span>
+              <FaClipboardList className="text-lg" />
             </button>
             <button 
               onClick={() => setShowSettings(true)} 
               className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-all duration-200"
               title="Configuración"
             >
-              <span className="text-lg">⚙️</span>
+              <FaCog className="text-lg" />
             </button>
           </div>
         </div>
@@ -197,24 +207,24 @@ export default function PomodoroTimer() {
 
             {/* Botones de acción */}
             <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setShowTaskList(!showTaskList)} 
-                className={`p-2 rounded-md transition-all duration-200 ${
-                  showTaskList 
-                    ? 'text-blue-600 bg-blue-50' 
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
-                title="Tareas"
-              >
-                <span className="text-lg">📋</span>
-              </button>
-              <button 
-                onClick={() => setShowSettings(true)} 
-                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-all duration-200"
-                title="Configuración"
-              >
-                <span className="text-lg">⚙️</span>
-              </button>
+                          <button 
+              onClick={() => setShowTaskList(!showTaskList)} 
+              className={`p-2 rounded-md transition-all duration-200 ${
+                showTaskList 
+                  ? 'text-blue-600 bg-blue-50' 
+                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+              }`}
+              title="Tareas"
+            >
+              <FaClipboardList className="text-lg" />
+            </button>
+            <button 
+              onClick={() => setShowSettings(true)} 
+              className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-all duration-200"
+              title="Configuración"
+            >
+              <FaCog className="text-lg" />
+            </button>
             </div>
           </div>
         </div>
@@ -279,18 +289,20 @@ export default function PomodoroTimer() {
           </div>
           
           {/* Botones de control */}
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full max-w-xs md:max-w-sm lg:max-w-md">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full max-w-xs md:max-w-sm lg:max-w-md justify-center">
             <button 
               onClick={start}
-              className="bg-gray-900 hover:bg-gray-800 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              className="bg-gray-900 hover:bg-gray-800 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-2"
             >
-              ▶ Iniciar
+              <FaPlay />
+              Iniciar
             </button>
             <button 
               onClick={reset}
-              className="bg-gray-600 hover:bg-gray-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              className="bg-gray-600 hover:bg-gray-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-2"
             >
-              ↺ Reiniciar
+              <FaRedo />
+              Reiniciar
             </button>
           </div>
 
