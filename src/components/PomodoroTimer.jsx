@@ -159,6 +159,7 @@ export default function PomodoroTimer() {
             <h1 className="text-xl font-medium text-gray-900">Pomodoro</h1>
           </div>
           
+          
           {/* Botones de acción */}
           <div className="flex items-center gap-2">
             <button 
@@ -196,9 +197,26 @@ export default function PomodoroTimer() {
 
             {/* Botones de acción */}
             <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setShowTaskList(!showTaskList)} 
+                className={`p-2 rounded-md transition-all duration-200 ${
+                  showTaskList 
+                    ? 'text-blue-600 bg-blue-50' 
+                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                }`}
+                title="Tareas"
+              >
+                <span className="text-lg">📋</span>
+              </button>
+              <button 
+                onClick={() => setShowSettings(true)} 
+                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-all duration-200"
+                title="Configuración"
+              >
+                <span className="text-lg">⚙️</span>
+              </button>
+            </div>
           </div>
-
-
         </div>
 
         {/* Información móvil compacta */}
