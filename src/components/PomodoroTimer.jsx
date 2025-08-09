@@ -5,7 +5,8 @@ import {
   FaRedo, 
   FaHome, 
   FaCog, 
-  FaClipboardList 
+  FaClipboardList,
+  FaPalette
 } from 'react-icons/fa';
 import useTimer from '../hooks/useTimer';
 import useTasks from '../hooks/useTasks';
@@ -75,8 +76,8 @@ export default function PomodoroTimer() {
     return (
       <div className={`fixed inset-0 bg-gradient-to-br ${currentColor.gradient} flex flex-col items-center justify-center z-40`}>
         {/* Header minimalista */}
-        <div className="absolute top-4 left-4 right-40 flex justify-between items-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white">🍅 Pomodoro</h1>
+        <div className="absolute top-4 left-4 right-16 md:right-40 flex justify-between items-center">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">🍅 Pomodoro</h1>
           <div className="flex items-center gap-2">
             {/* Botón de pausar/reanudar */}
             <button 
@@ -95,21 +96,6 @@ export default function PomodoroTimer() {
               <FaHome className="text-lg" />
             </button>
           </div>
-        </div>
-
-        {/* Botón de selector de colores */}
-        <div className="absolute top-4 right-4 z-[55]">
-          <button
-            onClick={changeToNextColor}
-            className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-2 text-white hover:bg-opacity-20 transition-all duration-200 flex items-center gap-2"
-            title="Cambiar color"
-          >
-            <div 
-              className="w-4 h-4 rounded-full"
-              style={{ backgroundColor: pomodoroColors.find(c => c.name === selectedColor)?.hex || '#ef4444' }}
-            ></div>
-            <span className="text-xs">🎨</span>
-          </button>
         </div>
 
         {/* Tarea actual si existe */}
@@ -179,11 +165,21 @@ export default function PomodoroTimer() {
         </div>
 
         {/* Footer con información */}
-        <div className="absolute bottom-4 left-4 right-4 text-center">
-
+        <div className="absolute bottom-4 left-4 right-20 md:right-4 text-center">
           <p className="text-white text-lg opacity-80">
             {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
           </p>
+        </div>
+
+        {/* Botón de selector de colores */}
+        <div className="absolute bottom-4 right-4 md:top-6 md:right-6 z-[55]">
+          <button
+            onClick={changeToNextColor}
+            className="bg-white bg-opacity-10 backdrop-blur-sm rounded-full p-3 md:p-2.5 text-white hover:bg-opacity-20 transition-all duration-200 hover:scale-105 shadow-lg"
+            title="Cambiar color"
+          >
+            <FaPalette className="text-xl md:text-lg lg:text-xl" />
+          </button>
         </div>
 
         {/* Notificación */}
