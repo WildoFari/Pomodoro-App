@@ -25,8 +25,30 @@ export default function PomodoroTimer() {
   const { durations } = usePomodoroConfig();
   const [showSettings, setShowSettings] = useState(false);
   const [showTaskList, setShowTaskList] = useState(false);
+  const [selectedColor, setSelectedColor] = useState('red');
+
+  // Función para cambiar al siguiente color
+  const changeToNextColor = () => {
+    const currentIndex = pomodoroColors.findIndex(color => color.name === selectedColor);
+    const nextIndex = (currentIndex + 1) % pomodoroColors.length;
+    setSelectedColor(pomodoroColors[nextIndex].name);
+  };
   
   const { currentTask, incrementPomodoros } = useTasks();
+
+  // Colores disponibles para el pomodoro
+  const pomodoroColors = [
+    { name: 'red', gradient: 'from-red-500 via-red-600 to-red-700', solid: 'bg-red-500', hex: '#ef4444' },
+    { name: 'blue', gradient: 'from-blue-500 via-blue-600 to-blue-700', solid: 'bg-blue-500', hex: '#3b82f6' },
+    { name: 'green', gradient: 'from-green-500 via-green-600 to-green-700', solid: 'bg-green-500', hex: '#22c55e' },
+    { name: 'purple', gradient: 'from-purple-500 via-purple-600 to-purple-700', solid: 'bg-purple-500', hex: '#a855f7' },
+    { name: 'orange', gradient: 'from-orange-500 via-orange-600 to-orange-700', solid: 'bg-orange-500', hex: '#f97316' },
+    { name: 'pink', gradient: 'from-pink-500 via-pink-600 to-pink-700', solid: 'bg-pink-500', hex: '#ec4899' },
+    { name: 'indigo', gradient: 'from-indigo-500 via-indigo-600 to-indigo-700', solid: 'bg-indigo-500', hex: '#6366f1' },
+    { name: 'teal', gradient: 'from-teal-500 via-teal-600 to-teal-700', solid: 'bg-teal-500', hex: '#14b8a6' },
+    { name: 'yellow', gradient: 'from-yellow-500 via-yellow-600 to-yellow-700', solid: 'bg-yellow-500', hex: '#eab308' },
+    { name: 'emerald', gradient: 'from-emerald-500 via-emerald-600 to-emerald-700', solid: 'bg-emerald-500', hex: '#10b981' }
+  ];
 
   // Función para manejar cuando termina un pomodoro
   const handlePomodoroComplete = () => {
@@ -48,10 +70,12 @@ export default function PomodoroTimer() {
 
   // Si está corriendo o pausado, mostrar pantalla completa
   if (isRunning || secondsLeft < durations.pomodoro * 60) {
+    const currentColor = pomodoroColors.find(color => color.name === selectedColor) || pomodoroColors[0];
+    
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50">
+      <div className={`fixed inset-0 bg-gradient-to-br ${currentColor.gradient} flex flex-col items-center justify-center z-40`}>
         {/* Header minimalista */}
-        <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
+        <div className="absolute top-4 left-4 right-40 flex justify-between items-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white">🍅 Pomodoro</h1>
           <div className="flex items-center gap-2">
             {/* Botón de pausar/reanudar */}
@@ -71,6 +95,21 @@ export default function PomodoroTimer() {
               <FaHome className="text-lg" />
             </button>
           </div>
+        </div>
+
+        {/* Botón de selector de colores */}
+        <div className="absolute top-4 right-4 z-[55]">
+          <button
+            onClick={changeToNextColor}
+            className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-2 text-white hover:bg-opacity-20 transition-all duration-200 flex items-center gap-2"
+            title="Cambiar color"
+          >
+            <div 
+              className="w-4 h-4 rounded-full"
+              style={{ backgroundColor: pomodoroColors.find(c => c.name === selectedColor)?.hex || '#ef4444' }}
+            ></div>
+            <span className="text-xs">🎨</span>
+          </button>
         </div>
 
         {/* Tarea actual si existe */}
