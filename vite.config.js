@@ -8,4 +8,38 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  build: {
+    // Optimizaciones para SEO y rendimiento
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          icons: ['react-icons']
+        }
+      }
+    },
+    // Minificación agresiva
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
+    // Generar source maps para debugging
+    sourcemap: false,
+    // Optimizar assets
+    assetsInlineLimit: 4096,
+    // Chunk size warnings
+    chunkSizeWarningLimit: 1000
+  },
+  // Optimizaciones de desarrollo
+  server: {
+    port: 3000,
+    open: true
+  },
+  // Preload de módulos críticos
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-icons']
+  }
 })

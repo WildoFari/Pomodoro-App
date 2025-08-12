@@ -194,9 +194,9 @@ export default function PomodoroTimer() {
 
   // Vista normal cuando no está corriendo
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 w-full">
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 w-full">
       {/* Header compacto para móvil */}
-      <div className="bg-white border-b border-gray-100 md:hidden w-full sticky top-0 z-40">
+      <header className="bg-white border-b border-gray-100 md:hidden w-full sticky top-0 z-40">
         <div className="flex items-center justify-between p-4 w-full">
           {/* Logo y título compactos */}
           <div className="flex items-center gap-3">
@@ -227,7 +227,7 @@ export default function PomodoroTimer() {
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Contenido principal */}
       <div className="w-full max-w-6xl mx-auto p-1 sm:p-2 md:p-4 lg:p-8">
@@ -368,7 +368,7 @@ export default function PomodoroTimer() {
           onClose={closeNotification}
         />
       </div>
-    </div>
+    </main>
   );
 }
 
