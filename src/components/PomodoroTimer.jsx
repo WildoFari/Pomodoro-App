@@ -71,8 +71,6 @@ export default function PomodoroTimer() {
 
   // Si está corriendo o pausado, mostrar pantalla completa
   if (isRunning || secondsLeft < durations.pomodoro * 60) {
-    const currentColor = pomodoroColors.find(color => color.name === selectedColor) || pomodoroColors[0];
-    
     return (
 
       <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50 overflow-hidden">
@@ -234,7 +232,7 @@ export default function PomodoroTimer() {
             </button>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Contenido principal */}
       <div className="w-full max-w-6xl mx-auto p-1 sm:p-2 md:p-4 lg:p-8">
@@ -380,7 +378,7 @@ export default function PomodoroTimer() {
           onClose={closeNotification}
         />
       </div>
-    </main>
+    </div>
   );
 }
 
