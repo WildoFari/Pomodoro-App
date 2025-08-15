@@ -28,6 +28,10 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  /* Mejoras para móvil */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 h1 {
@@ -45,6 +49,9 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  /* Mejoras para móvil */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 button:hover {
   border-color: #646cff;
@@ -52,6 +59,49 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Mejoras específicas para móvil */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  button {
+    min-height: 44px; /* Tamaño mínimo recomendado para touch */
+    padding: 0.8em 1.2em;
+  }
+  
+  input, select, textarea {
+    font-size: 16px; /* Evita zoom en iOS */
+    min-height: 44px;
+  }
+  
+  /* Mejorar scroll en móvil */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Optimizar para pantallas pequeñas */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Mejoras para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+  }
+  
+  button {
+    padding: 0.9em 1.4em;
+  }
 }
 
 @media (prefers-color-scheme: light) {

@@ -53,15 +53,15 @@ const MotivationalQuote = ({ context, className = "", showEmoji = true, autoChan
         }`}
       >
         {showEmoji && emoji && (
-          <div className="text-2xl md:text-3xl mb-3 animate-pulse">
+          <div className="text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 animate-pulse">
             {emoji}
           </div>
         )}
-        <p className={`text-sm md:text-base lg:text-lg font-medium leading-relaxed italic ${textColor}`}>
+        <p className={`text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-relaxed italic ${textColor} px-2`}>
           "{text}"
         </p>
         {showEmoji && emoji && (
-          <div className="text-lg md:text-xl mt-2 opacity-60">
+          <div className="text-base sm:text-lg md:text-xl mt-1 sm:mt-2 opacity-60">
             {emoji}
           </div>
         )}
