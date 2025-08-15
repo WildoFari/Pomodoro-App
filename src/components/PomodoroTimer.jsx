@@ -1,4 +1,13 @@
 import React, { useState } from 'react';
+import { 
+  FaPlay, 
+  FaPause, 
+  FaRedo, 
+  FaHome, 
+  FaCog, 
+  FaClipboardList,
+  FaPalette
+} from 'react-icons/fa';
 import useTimer from '../hooks/useTimer';
 import useTasks from '../hooks/useTasks';
 import { usePomodoroConfig } from '../context/PomodoroContext';
@@ -17,8 +26,30 @@ export default function PomodoroTimer() {
   const { durations } = usePomodoroConfig();
   const [showSettings, setShowSettings] = useState(false);
   const [showTaskList, setShowTaskList] = useState(false);
+  const [selectedColor, setSelectedColor] = useState('red');
+
+  // Función para cambiar al siguiente color
+  const changeToNextColor = () => {
+    const currentIndex = pomodoroColors.findIndex(color => color.name === selectedColor);
+    const nextIndex = (currentIndex + 1) % pomodoroColors.length;
+    setSelectedColor(pomodoroColors[nextIndex].name);
+  };
   
   const { currentTask, incrementPomodoros } = useTasks();
+
+  // Colores disponibles para el pomodoro
+  const pomodoroColors = [
+    { name: 'red', gradient: 'from-red-500 via-red-600 to-red-700', solid: 'bg-red-500', hex: '#ef4444' },
+    { name: 'blue', gradient: 'from-blue-500 via-blue-600 to-blue-700', solid: 'bg-blue-500', hex: '#3b82f6' },
+    { name: 'green', gradient: 'from-green-500 via-green-600 to-green-700', solid: 'bg-green-500', hex: '#22c55e' },
+    { name: 'purple', gradient: 'from-purple-500 via-purple-600 to-purple-700', solid: 'bg-purple-500', hex: '#a855f7' },
+    { name: 'orange', gradient: 'from-orange-500 via-orange-600 to-orange-700', solid: 'bg-orange-500', hex: '#f97316' },
+    { name: 'pink', gradient: 'from-pink-500 via-pink-600 to-pink-700', solid: 'bg-pink-500', hex: '#ec4899' },
+    { name: 'indigo', gradient: 'from-indigo-500 via-indigo-600 to-indigo-700', solid: 'bg-indigo-500', hex: '#6366f1' },
+    { name: 'teal', gradient: 'from-teal-500 via-teal-600 to-teal-700', solid: 'bg-teal-500', hex: '#14b8a6' },
+    { name: 'yellow', gradient: 'from-yellow-500 via-yellow-600 to-yellow-700', solid: 'bg-yellow-500', hex: '#eab308' },
+    { name: 'emerald', gradient: 'from-emerald-500 via-emerald-600 to-emerald-700', solid: 'bg-emerald-500', hex: '#10b981' }
+  ];
 
   // Función para manejar cuando termina un pomodoro
   const handlePomodoroComplete = () => {
@@ -40,7 +71,10 @@ export default function PomodoroTimer() {
 
   // Si está corriendo o pausado, mostrar pantalla completa
   if (isRunning || secondsLeft < durations.pomodoro * 60) {
+    const currentColor = pomodoroColors.find(color => color.name === selectedColor) || pomodoroColors[0];
+    
     return (
+
       <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50 overflow-hidden">
         {/* Header minimalista - optimizado para móvil */}
         <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-center">
@@ -57,10 +91,12 @@ export default function PomodoroTimer() {
             {/* Botón para volver al inicio */}
             <button 
               onClick={reset}
+
               className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               title="Volver al inicio"
             >
               <span className="text-lg sm:text-xl md:text-2xl">🏠</span>
+
             </button>
           </div>
         </div>
@@ -69,10 +105,12 @@ export default function PomodoroTimer() {
         {currentTask && (
           <div className="absolute top-16 sm:top-20 left-2 sm:left-4 right-2 sm:right-4 text-center">
             <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 max-w-sm sm:max-w-md md:max-w-2xl mx-auto">
+
               <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-2">🎯 Tarea Actual</h3>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-2 sm:mb-3 break-words px-2">{currentTask.text}</p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 md:gap-3">
                 <span className="text-white text-sm sm:text-base md:text-lg">
+
                   {currentTask.completedPomodoros}/{currentTask.pomodoroCount} pomodoros
                 </span>
                 <div className="flex gap-1 sm:gap-2">
@@ -117,13 +155,15 @@ export default function PomodoroTimer() {
                 onClick={isRunning ? pause : start}
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[44px]"
               >
-                {isRunning ? '⏸️ Pausar' : '▶️ Reanudar'}
+                {isRunning ? <FaPause /> : <FaPlay />}
+                <span className="hidden sm:inline">{isRunning ? 'Pausar' : 'Reanudar'}</span>
               </button>
               <button 
                 onClick={reset}
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[44px]"
               >
-                🔄 Reiniciar
+                <FaRedo />
+                <span className="hidden sm:inline">Reiniciar</span>
               </button>
             </div>
           </div>
@@ -134,6 +174,17 @@ export default function PomodoroTimer() {
           <p className="text-white text-sm sm:text-base md:text-lg opacity-80">
             {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
           </p>
+        </div>
+
+        {/* Botón de selector de colores - optimizado para móvil */}
+        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 md:top-6 md:right-6 z-[55]">
+          <button
+            onClick={changeToNextColor}
+            className="bg-white bg-opacity-10 backdrop-blur-sm rounded-full p-2.5 sm:p-3 md:p-2.5 text-white hover:bg-opacity-20 transition-all duration-200 hover:scale-105 shadow-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+            title="Cambiar color"
+          >
+            <FaPalette className="text-lg sm:text-xl md:text-lg lg:text-xl" />
+          </button>
         </div>
 
         {/* Notificación */}
@@ -153,14 +204,9 @@ export default function PomodoroTimer() {
       <div className="bg-white shadow-lg md:hidden w-full sticky top-0 z-40">
         <div className="flex items-center justify-between p-3 w-full">
           {/* Logo y título compactos */}
-          <div className="flex items-center gap-2">
-            <div className="bg-gradient-to-br from-red-500 to-red-600 p-2 rounded-lg shadow-md">
-              <span className="text-lg">🍅</span>
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-gray-800">Pomodoro</h1>
-              <p className="text-xs text-gray-600">Timer</p>
-            </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-xl sm:text-2xl">🍅</span>
+            <h1 className="text-lg sm:text-xl font-medium text-gray-900">Pomodoro</h1>
           </div>
           
           {/* Iconos pequeños en esquina superior derecha */}
@@ -188,116 +234,39 @@ export default function PomodoroTimer() {
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Contenido principal */}
       <div className="w-full max-w-6xl mx-auto p-1 sm:p-2 md:p-4 lg:p-8">
-        {/* Header desktop */}
-        <div className="hidden md:block bg-white rounded-3xl shadow-xl p-6 md:p-8 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        {/* Header desktop - optimizado */}
+        <div className="hidden md:block bg-white border-b border-gray-100 p-4 mb-4">
+          <div className="flex items-center justify-between">
             {/* Logo y título */}
-            <div className="flex items-center gap-4">
-              <div className="bg-gradient-to-br from-red-500 to-red-600 p-4 rounded-2xl shadow-lg">
-                <span className="hidden md:block text-4xl">🍅</span>
-                <span className="md:hidden text-sm">🍅</span>
-              </div>
-              <div>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">Pomodoro Timer</h1>
-                <p className="text-gray-600 text-sm md:text-base lg:text-lg">Mantén el enfoque, maximiza la productividad</p>
-              </div>
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🍅</span>
+              <h1 className="text-xl font-medium text-gray-900">Pomodoro Timer</h1>
             </div>
 
-            {/* Botones de acción */}
-            <div className="flex items-center gap-3 flex-wrap">
-              {/* Botón de estadísticas */}
-              <button 
-                title="Ver Estadísticas" 
-                className="p-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 group"
-              >
-                <div className="text-xl group-hover:scale-110 transition-transform duration-200">
-                  📊
-                </div>
-                <span className="text-xs block mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  Stats
-                </span>
-              </button>
-
-              {/* Botón de tareas */}
+            {/* Botones de acción - optimizados */}
+            <div className="flex items-center gap-2">
               <button 
                 onClick={() => setShowTaskList(!showTaskList)} 
-                title="Lista de Tareas" 
-                className={`p-3 rounded-xl transition-all duration-200 group ${
+                className={`p-2 rounded-lg transition-all duration-200 ${
                   showTaskList 
                     ? 'text-blue-600 bg-blue-50' 
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
+                title="Tareas"
               >
-                <div className="text-xl group-hover:scale-110 transition-transform duration-200">
-                  📋
-                </div>
-                <span className="text-xs block mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  Tareas
-                </span>
+                <FaClipboardList className="text-lg" />
               </button>
-
-              {/* Botón de configuración */}
               <button 
                 onClick={() => setShowSettings(true)} 
-                title="Configuración" 
-                className="p-3 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-xl transition-all duration-200 group"
+                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200"
+                title="Configuración"
               >
-                <div className="text-xl group-hover:scale-110 transition-transform duration-200">
-                  ⚙️
-                </div>
-                <span className="text-xs block mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  Config
-                </span>
+                <FaCog className="text-lg" />
               </button>
-
-              {/* Separador visual */}
-              <div className="w-px h-8 bg-gray-200 mx-2 hidden lg:block"></div>
-
-              {/* Indicador de estado */}
-              <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-xl border border-green-200">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-green-700">Listo</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Información adicional en el header */}
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-600">
-              <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span>⏱️</span>
-                  <span className="font-medium">Duración: {durations.pomodoro} min</span>
-                </span>
-                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span>☕</span>
-                  <span className="font-medium">Descanso: {durations.shortBreak} min</span>
-                </span>
-                <span className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
-                  <span>🌙</span>
-                  <span className="font-medium">Descanso largo: {durations.longBreak} min</span>
-                </span>
-              </div>
-              <div className="text-right">
-                <span className="font-medium text-lg bg-blue-50 px-4 py-2 rounded-lg text-blue-700">
-                  Hoy: 0 pomodoros
-                </span>
-              </div>
-            </div>
-            
-            {/* Frase motivadora en el header */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 border border-blue-100">
-                <MotivationalQuote 
-                  autoChange={true}
-                  changeInterval={30000}
-                  textColor="text-gray-700"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -314,11 +283,6 @@ export default function PomodoroTimer() {
                 Hoy: 0 pomodoros
               </span>
             </div>
-            <div className="flex justify-between text-xs text-gray-600">
-              <span className="bg-gray-50 px-2 py-1 rounded">⏱️ {durations.pomodoro}m</span>
-              <span className="bg-gray-50 px-2 py-1 rounded">☕ {durations.shortBreak}m</span>
-              <span className="bg-gray-50 px-2 py-1 rounded">🌙 {durations.longBreak}m</span>
-            </div>
           </div>
         </div>
 
@@ -326,25 +290,22 @@ export default function PomodoroTimer() {
         <div className="flex flex-col items-center justify-center min-h-[30vh] sm:min-h-[35vh] md:min-h-[50vh] lg:min-h-[60vh] gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full px-3 sm:px-4">
           {/* Mostrar tarea actual si existe - optimizada para móvil */}
           {currentTask && (
-            <div className="w-full max-w-sm md:max-w-md lg:max-w-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl md:rounded-2xl p-3 md:p-4 lg:p-6 shadow-lg">
+            <div className="w-full max-w-sm sm:max-w-md bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
               <div className="text-center">
-                <h3 className="text-sm md:text-lg lg:text-xl font-semibold text-blue-800 mb-2 md:mb-3 flex items-center justify-center gap-2">
-                  <span>🎯</span>
-                  <span>Tarea Actual</span>
-                </h3>
-                <p className="text-blue-900 mb-2 md:mb-3 lg:mb-4 text-sm md:text-base lg:text-lg break-words">{currentTask.text}</p>
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-3">
-                  <span className="text-xs md:text-sm text-blue-700 bg-white px-2 md:px-3 py-1 rounded-full">
-                    Pomodoros: {currentTask.completedPomodoros}/{currentTask.pomodoroCount}
+                <h3 className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Tarea Actual</h3>
+                <p className="text-gray-900 mb-2 sm:mb-3 text-xs sm:text-sm break-words">{currentTask.text}</p>
+                <div className="flex justify-center items-center gap-1 sm:gap-2">
+                  <span className="text-xs text-gray-700">
+                    {currentTask.completedPomodoros}/{currentTask.pomodoroCount}
                   </span>
-                  <div className="flex gap-1 md:gap-2">
+                  <div className="flex gap-1">
                     {[...Array(currentTask.pomodoroCount)].map((_, i) => (
                       <div
                         key={i}
-                        className={`w-3 md:w-4 h-3 md:h-4 rounded-full ${
+                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
                           i < currentTask.completedPomodoros 
-                            ? 'bg-orange-500 shadow-md' 
-                            : 'bg-gray-300'
+                            ? 'bg-blue-500' 
+                            : 'bg-gray-200'
                         }`}
                       />
                     ))}
@@ -379,22 +340,25 @@ export default function PomodoroTimer() {
               onClick={start}
               className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              ▶️ Iniciar
+              <FaPlay />
+              Iniciar
             </button>
             <button 
               onClick={reset}
               className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              🔄 Reiniciar
+              <FaRedo />
+              Reiniciar
             </button>
           </div>
 
           {/* Frase motivadora - optimizada para móvil */}
           <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg mt-3 sm:mt-4 md:mt-6 lg:mt-8">
             <div className="bg-white bg-opacity-80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 shadow-lg border border-gray-100">
+
               <MotivationalQuote 
                 context="starting"
-                textColor="text-gray-800"
+                textColor="text-gray-700"
                 changeInterval={20000}
               />
             </div>
@@ -416,7 +380,7 @@ export default function PomodoroTimer() {
           onClose={closeNotification}
         />
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -68,15 +68,6 @@ button:focus-visible {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
-/* Mejoras específicas para móvil */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-    /* Prevenir zoom en iOS */
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-size-adjust: 100%;
   }
   
   button {
@@ -99,7 +90,6 @@ button:focus-visible {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
   /* Prevenir overflow en móvil */
   .min-h-screen {
     min-height: 100vh;

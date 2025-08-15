@@ -1,7 +1,7 @@
 {
-  "name": "pomodoro-app",
-  "private": true,
-  "version": "0.0.0",
+  "name": "pomodoro-timer-app",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
@@ -25,5 +26,29 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "vite": "^7.0.4"
-  }
+  },
+  "keywords": [
+    "pomodoro",
+    "productivity",
+    "timer",
+    "time-management",
+    "focus",
+    "concentration",
+    "tasks",
+    "study",
+    "work",
+    "react",
+    "vite"
+  ],
+  "author": "Pomodoro App Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/pomodoro-app.git"
+  },
+  "homepage": "https://tu-dominio.com",
+  "bugs": {
+    "url": "https://github.com/tu-usuario/pomodoro-app/issues"
+  },
+  "description": "Aplicación Pomodoro gratuita para mejorar tu productividad. Técnica de gestión del tiempo con temporizadores personalizables, seguimiento de tareas y estadísticas de productividad."
 }

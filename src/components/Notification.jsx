@@ -35,38 +35,38 @@ export default function Notification({ show, message, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-3xl shadow-2xl max-w-4xl w-full mx-4 p-8 md:p-12">
+      <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto p-6 sm:p-8 md:p-12">
         <div className="text-center">
           {/* Icono grande */}
-          <div className="text-8xl md:text-9xl mb-6 animate-bounce">
+          <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl mb-4 sm:mb-6 animate-bounce">
             🔔
           </div>
           
           {/* Título principal */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-3 sm:mb-4">
             ¡Sesión Completada!
           </h1>
           
           {/* Mensaje */}
-          <p className="text-xl md:text-2xl mb-8 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 leading-relaxed">
             {message}
           </p>
           
           {/* Mensaje adicional */}
-          <p className="text-lg md:text-xl mb-8 text-green-100">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 text-green-100">
             ¡Excelente trabajo! Es hora de tomar un descanso.
           </p>
           
           {/* Botón de cierre */}
           <button 
             onClick={onClose}
-            className="bg-white text-green-600 px-8 py-4 rounded-full text-xl md:text-2xl font-bold hover:bg-green-50 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="bg-white text-green-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold hover:bg-green-50 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 w-full sm:w-auto"
           >
             ¡Entendido!
           </button>
           
           {/* Contador de auto-cierre */}
-          <p className="text-sm text-green-200 mt-4">
+          <p className="text-xs sm:text-sm text-green-200 mt-3 sm:mt-4">
             Se cerrará automáticamente en 10 segundos
           </p>
         </div>
