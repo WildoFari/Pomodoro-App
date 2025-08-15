@@ -74,26 +74,29 @@ export default function PomodoroTimer() {
     const currentColor = pomodoroColors.find(color => color.name === selectedColor) || pomodoroColors[0];
     
     return (
-      <div className={`fixed inset-0 bg-gradient-to-br ${currentColor.gradient} flex flex-col items-center justify-center z-40`}>
+
+      <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50 overflow-hidden">
         {/* Header minimalista - optimizado para móvil */}
-        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-16 md:right-40 flex justify-between items-center">
+        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-center">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">🍅 Pomodoro</h1>
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Botón de pausar/reanudar */}
             <button 
               onClick={isRunning ? pause : start}
-              className="text-white hover:bg-white hover:bg-opacity-10 p-2 sm:p-3 rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              {isRunning ? <FaPause className="text-base sm:text-lg" /> : <FaPlay className="text-base sm:text-lg" />}
+              <span className="text-lg sm:text-xl md:text-2xl">{isRunning ? '⏸️' : '▶️'}</span>
             </button>
             
             {/* Botón para volver al inicio */}
             <button 
               onClick={reset}
-              className="text-white hover:bg-white hover:bg-opacity-10 p-2 sm:p-3 rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+
+              className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               title="Volver al inicio"
             >
-              <FaHome className="text-base sm:text-lg" />
+              <span className="text-lg sm:text-xl md:text-2xl">🏠</span>
+
             </button>
           </div>
         </div>
@@ -102,10 +105,12 @@ export default function PomodoroTimer() {
         {currentTask && (
           <div className="absolute top-16 sm:top-20 left-2 sm:left-4 right-2 sm:right-4 text-center">
             <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 max-w-sm sm:max-w-md md:max-w-2xl mx-auto">
-              <h3 className="text-base sm:text-xl md:text-2xl font-semibold text-white mb-1 sm:mb-2">🎯 Tarea Actual</h3>
-              <p className="text-sm sm:text-lg md:text-xl text-white mb-2 sm:mb-3 break-words px-2">{currentTask.text}</p>
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3">
-                <span className="text-white text-sm sm:text-lg">
+
+              <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-2">🎯 Tarea Actual</h3>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-2 sm:mb-3 break-words px-2">{currentTask.text}</p>
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 md:gap-3">
+                <span className="text-white text-sm sm:text-base md:text-lg">
+
                   {currentTask.completedPomodoros}/{currentTask.pomodoroCount} pomodoros
                 </span>
                 <div className="flex gap-1 sm:gap-2">
@@ -128,11 +133,11 @@ export default function PomodoroTimer() {
         {/* Temporizador gigante - optimizado para móvil */}
         <div className="flex flex-col items-center justify-center flex-1 px-4">
           <div className="text-center w-full">
-            <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] font-mono font-bold text-white mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl leading-none">
+            <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[12rem] font-mono font-bold text-white mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl leading-none">
               {formatTime(secondsLeft)}
             </div>
             
-            {/* Barra de progreso */}
+            {/* Barra de progreso - optimizada para móvil */}
             <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto mb-4 sm:mb-6 md:mb-8">
               <div className="bg-white bg-opacity-30 rounded-full h-2 sm:h-3 md:h-4 overflow-hidden">
                 <div 
@@ -145,17 +150,17 @@ export default function PomodoroTimer() {
             </div>
 
             {/* Botones de control - optimizados para móvil */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center">
               <button 
                 onClick={isRunning ? pause : start}
-                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20 flex items-center justify-center gap-2 min-h-[44px]"
+                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[44px]"
               >
                 {isRunning ? <FaPause /> : <FaPlay />}
                 <span className="hidden sm:inline">{isRunning ? 'Pausar' : 'Reanudar'}</span>
               </button>
               <button 
                 onClick={reset}
-                className="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-medium transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20 flex items-center justify-center gap-2 min-h-[44px]"
+                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[44px]"
               >
                 <FaRedo />
                 <span className="hidden sm:inline">Reiniciar</span>
@@ -165,8 +170,8 @@ export default function PomodoroTimer() {
         </div>
 
         {/* Footer con información - optimizado para móvil */}
-        <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-16 sm:right-20 md:right-4 text-center">
-          <p className="text-white text-sm sm:text-lg opacity-80">
+        <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 text-center">
+          <p className="text-white text-sm sm:text-base md:text-lg opacity-80">
             {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
           </p>
         </div>
@@ -194,35 +199,38 @@ export default function PomodoroTimer() {
 
   // Vista normal cuando no está corriendo
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 w-full">
-      {/* Header compacto para móvil - optimizado */}
-      <header className="bg-white border-b border-gray-100 md:hidden w-full sticky top-0 z-40">
-        <div className="flex items-center justify-between p-3 sm:p-4 w-full">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 w-full overflow-x-hidden">
+      {/* Header compacto para móvil - con iconos en esquina superior derecha */}
+      <div className="bg-white shadow-lg md:hidden w-full sticky top-0 z-40">
+        <div className="flex items-center justify-between p-3 w-full">
           {/* Logo y título compactos */}
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-xl sm:text-2xl">🍅</span>
             <h1 className="text-lg sm:text-xl font-medium text-gray-900">Pomodoro</h1>
           </div>
           
-          {/* Botones de acción - optimizados para touch */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          {/* Iconos pequeños en esquina superior derecha */}
+          <div className="flex items-center gap-1">
+            {/* Botón de tareas */}
             <button 
               onClick={() => setShowTaskList(!showTaskList)} 
-              className={`p-2 sm:p-3 rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              className={`p-1.5 rounded-md transition-all duration-200 ${
                 showTaskList 
                   ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                  : 'text-gray-500 hover:text-blue-600 hover:bg-blue-50'
               }`}
               title="Tareas"
             >
-              <FaClipboardList className="text-base sm:text-lg" />
+              <span className="text-xs">📋</span>
             </button>
+            
+            {/* Botón de configuración */}
             <button 
               onClick={() => setShowSettings(true)} 
-              className="p-2 sm:p-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-md transition-all duration-200"
               title="Configuración"
             >
-              <FaCog className="text-base sm:text-lg" />
+              <span className="text-xs">⚙️</span>
             </button>
           </div>
         </div>
@@ -263,28 +271,23 @@ export default function PomodoroTimer() {
           </div>
         </div>
 
-        {/* Información móvil compacta - optimizada */}
-        <div className="md:hidden mb-3 sm:mb-4">
-          <div className="bg-white border border-gray-100 rounded-lg p-2 sm:p-3 w-full">
-            <div className="flex justify-between text-xs sm:text-sm text-gray-700">
-              <span className="flex items-center gap-1">
-                <span>⏱️</span>
-                <span>{durations.pomodoro}m</span>
-              </span>
-              <span className="flex items-center gap-1">
-                <span>☕</span>
-                <span>{durations.shortBreak}m</span>
-              </span>
-              <span className="flex items-center gap-1">
-                <span>🌙</span>
-                <span>{durations.longBreak}m</span>
+        {/* Información móvil compacta */}
+        <div className="md:hidden mb-3">
+          <div className="bg-white rounded-xl p-3 shadow-lg w-full">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2 px-2 py-1 bg-green-50 rounded-full">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-xs font-medium text-green-700">Listo</span>
+              </div>
+              <span className="text-xs font-medium bg-blue-50 px-2 py-1 rounded-full text-blue-700">
+                Hoy: 0 pomodoros
               </span>
             </div>
           </div>
         </div>
 
         {/* Contenido principal centrado - optimizado para móvil */}
-        <div className="flex flex-col items-center justify-center min-h-[35vh] sm:min-h-[40vh] md:min-h-[50vh] lg:min-h-[60vh] gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full px-3 sm:px-4">
+        <div className="flex flex-col items-center justify-center min-h-[30vh] sm:min-h-[35vh] md:min-h-[50vh] lg:min-h-[60vh] gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full px-3 sm:px-4">
           {/* Mostrar tarea actual si existe - optimizada para móvil */}
           {currentTask && (
             <div className="w-full max-w-sm sm:max-w-md bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
@@ -332,17 +335,17 @@ export default function PomodoroTimer() {
           </div>
           
           {/* Botones de control - optimizados para móvil */}
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg justify-center">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg justify-center">
             <button 
               onClick={start}
-              className="bg-gray-900 hover:bg-gray-800 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2 min-h-[44px]"
+              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               <FaPlay />
               Iniciar
             </button>
             <button 
               onClick={reset}
-              className="bg-gray-600 hover:bg-gray-500 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2 min-h-[44px]"
+              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               <FaRedo />
               Reiniciar
@@ -350,8 +353,9 @@ export default function PomodoroTimer() {
           </div>
 
           {/* Frase motivadora - optimizada para móvil */}
-          <div className="w-full max-w-sm sm:max-w-md mt-4 sm:mt-6">
-            <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
+          <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg mt-3 sm:mt-4 md:mt-6 lg:mt-8">
+            <div className="bg-white bg-opacity-80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 shadow-lg border border-gray-100">
+
               <MotivationalQuote 
                 context="starting"
                 textColor="text-gray-700"
