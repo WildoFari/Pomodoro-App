@@ -76,7 +76,9 @@ export default function PomodoroTimer() {
       <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50 overflow-hidden">
         {/* Header minimalista - optimizado para móvil */}
         <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-center">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">🍅 Pomodoro</h1>
+          <div className="bg-black bg-opacity-30 backdrop-blur-sm rounded-lg px-3 py-2">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-lg">🍅 Pomodoro</h1>
+          </div>
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Botón de pausar/reanudar */}
             <button 
@@ -102,12 +104,12 @@ export default function PomodoroTimer() {
         {/* Tarea actual si existe - optimizada para móvil */}
         {currentTask && (
           <div className="absolute top-16 sm:top-20 left-2 sm:left-4 right-2 sm:right-4 text-center">
-            <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 max-w-sm sm:max-w-md md:max-w-2xl mx-auto">
+            <div className="bg-black bg-opacity-40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 max-w-sm sm:max-w-md md:max-w-2xl mx-auto border border-white border-opacity-20 shadow-2xl">
 
-              <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-2">🎯 Tarea Actual</h3>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-2 sm:mb-3 break-words px-2">{currentTask.text}</p>
+              <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-2 drop-shadow-lg">🎯 Tarea Actual</h3>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-2 sm:mb-3 break-words px-2 drop-shadow-lg font-medium">{currentTask.text}</p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 md:gap-3">
-                <span className="text-white text-sm sm:text-base md:text-lg">
+                <span className="text-white text-sm sm:text-base md:text-lg drop-shadow-lg font-medium">
 
                   {currentTask.completedPomodoros}/{currentTask.pomodoroCount} pomodoros
                 </span>
@@ -169,9 +171,11 @@ export default function PomodoroTimer() {
 
         {/* Footer con información - optimizado para móvil */}
         <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 text-center">
-          <p className="text-white text-sm sm:text-base md:text-lg opacity-80">
-            {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
-          </p>
+          <div className="bg-black bg-opacity-30 backdrop-blur-sm rounded-lg px-3 py-2 inline-block">
+            <p className="text-white text-sm sm:text-base md:text-lg font-medium drop-shadow-lg">
+              {isRunning ? '¡Mantén el enfoque! 💪' : 'Temporizador pausado ⏸️'}
+            </p>
+          </div>
         </div>
 
         {/* Botón de selector de colores - optimizado para móvil */}
