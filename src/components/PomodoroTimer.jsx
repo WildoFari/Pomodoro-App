@@ -120,7 +120,7 @@ export default function PomodoroTimer() {
 
         {/* Tarea actual si existe - optimizada para móvil */}
         {currentTask && (
-          <div className="absolute top-16 sm:top-20 left-2 sm:left-4 right-2 sm:right-4 text-center">
+          <div className="absolute top-40 sm:top-30 left-2 sm:left-4 right-2 sm:right-4 text-center">
             <div className="bg-black bg-opacity-40 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 max-w-sm sm:max-w-md md:max-w-2xl mx-auto border border-white border-opacity-20 shadow-2xl">
 
               <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 sm:mb-2 drop-shadow-lg">🎯 Tarea Actual</h3>
