@@ -218,21 +218,21 @@ export default function PomodoroTimer() {
               onClick={() => setShowTaskList(!showTaskList)} 
               className={`p-1.5 rounded-md transition-all duration-200 ${
                 showTaskList 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-500 hover:text-blue-600 hover:bg-blue-50'
+                  ? 'text-white bg-blue-600' 
+                  : 'text-white hover:text-blue-200 hover:bg-gray-700'
               }`}
               title="Tareas"
             >
-              <span className="text-xs">📋</span>
+              <FaClipboardList className="text-xs" />
             </button>
             
             {/* Botón de configuración */}
             <button 
               onClick={() => setShowSettings(true)} 
-              className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-md transition-all duration-200"
+              className="p-1.5 text-white hover:text-gray-200 hover:bg-gray-700 rounded-md transition-all duration-200"
               title="Configuración"
             >
-              <span className="text-xs">⚙️</span>
+              <FaCog className="text-xs" />
             </button>
           </div>
         </div>
@@ -255,8 +255,8 @@ export default function PomodoroTimer() {
                 onClick={() => setShowTaskList(!showTaskList)} 
                 className={`p-2 rounded-lg transition-all duration-200 ${
                   showTaskList 
-                    ? 'text-blue-600 bg-blue-50' 
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                    ? 'text-white bg-blue-600' 
+                    : 'text-white hover:text-blue-200 hover:bg-gray-700'
                 }`}
                 title="Tareas"
               >
@@ -264,7 +264,7 @@ export default function PomodoroTimer() {
               </button>
               <button 
                 onClick={() => setShowSettings(true)} 
-                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200"
+                className="p-2 text-white hover:text-gray-200 hover:bg-gray-700 rounded-lg transition-all duration-200"
                 title="Configuración"
               >
                 <FaCog className="text-lg" />
