@@ -319,7 +319,7 @@ export default function PomodoroTimer() {
 
           {/* Temporizador principal - optimizado para móvil */}
           <div className="text-center w-full">
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-mono font-bold text-gray-800 mb-3 sm:mb-4 md:mb-6 lg:mb-8 drop-shadow-lg leading-none">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-gray-800 mb-3 sm:mb-4 md:mb-6 lg:mb-8 drop-shadow-lg leading-none">
               {formatTime(secondsLeft)}
             </div>
             
