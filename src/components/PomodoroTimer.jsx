@@ -73,7 +73,7 @@ export default function PomodoroTimer() {
   if (isRunning || secondsLeft < durations.pomodoro * 60) {
     return (
 
-      <div className="fixed inset-0 bg-gradient-to-br from-red-500 via-red-600 to-red-700 flex flex-col items-center justify-center z-50 overflow-hidden">
+      <div className={`fixed inset-0 bg-gradient-to-br ${pomodoroColors.find(color => color.name === selectedColor)?.gradient || 'from-red-500 via-red-600 to-red-700'} flex flex-col items-center justify-center z-50 overflow-hidden`}>
         {/* Header minimalista - optimizado para móvil */}
         <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-center">
           <div className="bg-black bg-opacity-30 backdrop-blur-sm rounded-lg px-3 py-2">
@@ -85,7 +85,11 @@ export default function PomodoroTimer() {
               onClick={isRunning ? pause : start}
               className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              <span className="text-lg sm:text-xl md:text-2xl">{isRunning ? '⏸️' : '▶️'}</span>
+              {isRunning ? (
+                <FaPause className="text-lg sm:text-xl md:text-2xl" />
+              ) : (
+                <FaPlay className="text-lg sm:text-xl md:text-2xl" />
+              )}
             </button>
             
             {/* Botón para volver al inicio */}
@@ -95,8 +99,21 @@ export default function PomodoroTimer() {
               className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               title="Volver al inicio"
             >
-              <span className="text-lg sm:text-xl md:text-2xl">🏠</span>
+              <FaHome className="text-lg sm:text-xl md:text-2xl" />
 
+            </button>
+
+            {/* Botón de cambiar color */}
+            <button
+              onClick={changeToNextColor}
+              className={`hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center`}
+              style={{ 
+                backgroundColor: pomodoroColors.find(color => color.name === selectedColor)?.hex || '#ef4444',
+                color: 'white'
+              }}
+              title="Cambiar color"
+            >
+              <FaPalette className="text-lg sm:text-xl md:text-2xl" />
             </button>
           </div>
         </div>
@@ -150,17 +167,17 @@ export default function PomodoroTimer() {
             </div>
 
             {/* Botones de control - optimizados para móvil */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-center items-center w-full max-w-md mx-auto">
               <button 
                 onClick={isRunning ? pause : start}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[44px]"
+                className="w-full sm:w-auto bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 sm:px-8 md:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl md:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[50px] flex items-center justify-center gap-2 sm:gap-3"
               >
                 {isRunning ? <FaPause /> : <FaPlay />}
                 <span className="hidden sm:inline">{isRunning ? 'Pausar' : 'Reanudar'}</span>
               </button>
               <button 
                 onClick={reset}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-xl lg:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[44px]"
+                className="w-full sm:w-auto bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 sm:px-8 md:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl md:text-2xl font-bold transition-all duration-200 backdrop-blur-sm min-h-[50px] flex items-center justify-center gap-2 sm:gap-3"
               >
                 <FaRedo />
                 <span className="hidden sm:inline">Reiniciar</span>
@@ -179,15 +196,7 @@ export default function PomodoroTimer() {
         </div>
 
         {/* Botón de selector de colores - optimizado para móvil */}
-        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 md:top-6 md:right-6 z-[55]">
-          <button
-            onClick={changeToNextColor}
-            className="bg-white bg-opacity-10 backdrop-blur-sm rounded-full p-2.5 sm:p-3 md:p-2.5 text-white hover:bg-opacity-20 transition-all duration-200 hover:scale-105 shadow-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
-            title="Cambiar color"
-          >
-            <FaPalette className="text-lg sm:text-xl md:text-lg lg:text-xl" />
-          </button>
-        </div>
+
 
         {/* Notificación */}
         <Notification 
@@ -208,7 +217,7 @@ export default function PomodoroTimer() {
           {/* Logo y título compactos */}
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-xl sm:text-2xl">🍅</span>
-            <h1 className="text-lg sm:text-xl font-medium text-gray-900">Pomodoro</h1>
+            <h1 className="text-lg hidden md:block sm:text-xl font-medium text-gray-900">Pomodoro</h1>
           </div>
           
           {/* Iconos pequeños en esquina superior derecha */}
