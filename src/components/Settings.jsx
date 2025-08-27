@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaCog } from 'react-icons/fa';
 import { usePomodoroConfig } from '../context/PomodoroContext';
 
 export default function Settings({ onClose }) {
@@ -20,11 +21,14 @@ export default function Settings({ onClose }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <form className="bg-white p-4 sm:p-6 rounded-lg shadow-xl flex flex-col gap-4 w-full max-w-sm mx-auto" onSubmit={handleSubmit}>
         <div className="flex items-center justify-between">
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900">⚙️ Configuración</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center gap-2">
+            <FaCog className="text-black" />
+            Configuración
+          </h2>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-white hover:text-gray-400 transition-colors"
           >
             ✕
           </button>
@@ -81,13 +85,13 @@ export default function Settings({ onClose }) {
           <button 
             type="button" 
             onClick={onClose} 
-            className="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors text-sm font-medium"
+            className="flex-1 px-4 py-2 bg-gray-300 text-white hover:text-gray-400 rounded-lg hover:bg-gray-400 transition-colors text-sm font-medium"
           >
             Cancelar
           </button>
           <button 
             type="submit" 
-            className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
+            className="flex-1 px-4 py-2 bg-blue-500 text-white hover:text-gray-400 rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium"
           >
             Guardar
           </button>
