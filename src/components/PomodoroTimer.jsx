@@ -326,14 +326,14 @@ export default function PomodoroTimer() {
             </div>
           )}
 
-          {/* Temporizador principal - optimizado para móvil */}
+          {/* Temporizador principal con controles integrados */}
           <div className="text-center w-full">
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-gray-800 mb-3 sm:mb-4 md:mb-6 lg:mb-8 drop-shadow-lg leading-none">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-gray-800 mb-4 sm:mb-6 md:mb-8 drop-shadow-lg leading-none">
               {formatTime(secondsLeft)}
             </div>
             
             {/* Barra de progreso - optimizada para móvil */}
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mb-3 sm:mb-4 md:mb-6 lg:mb-8">
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mb-6 sm:mb-8 md:mb-10">
               <div className="bg-gray-200 rounded-full h-1.5 sm:h-2 md:h-3 overflow-hidden shadow-inner">
                 <div 
                   className="bg-gradient-to-r from-red-500 to-red-600 h-full rounded-full transition-all duration-1000 ease-linear shadow-lg"
@@ -343,24 +343,24 @@ export default function PomodoroTimer() {
                 />
               </div>
             </div>
-          </div>
-          
-          {/* Botones de control - optimizados para móvil */}
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg justify-center">
-            <button 
-              onClick={start}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              <FaPlay />
-              Iniciar
-            </button>
-            <button 
-              onClick={reset}
-              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              <FaRedo />
-              Reiniciar
-            </button>
+            
+            {/* Botones de control integrados con el temporizador */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center">
+              <button 
+                onClick={start}
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 sm:px-8 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2"
+              >
+                <FaPlay className="text-sm sm:text-base" />
+                <span>Iniciar</span>
+              </button>
+              <button 
+                onClick={reset}
+                className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-6 sm:px-8 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl text-sm sm:text-base md:text-lg font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2"
+              >
+                <FaRedo className="text-sm sm:text-base" />
+                <span>Reiniciar</span>
+              </button>
+            </div>
           </div>
 
           {/* Frase motivadora - optimizada para móvil */}
