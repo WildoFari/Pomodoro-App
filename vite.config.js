@@ -9,8 +9,14 @@ export default defineConfig({
     tailwindcss()
   ],
   build: {
-    // Minificación
-    minify: 'esbuild',
+    // Minificación con terser
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
     // Generar source maps para debugging
     sourcemap: false,
     // Optimizar assets
