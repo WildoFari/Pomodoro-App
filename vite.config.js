@@ -9,23 +9,8 @@ export default defineConfig({
     tailwindcss()
   ],
   build: {
-    // Optimizaciones para SEO y rendimiento
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          icons: ['react-icons']
-        }
-      }
-    },
-    // Minificación agresiva
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    },
+    // Minificación
+    minify: 'esbuild',
     // Generar source maps para debugging
     sourcemap: false,
     // Optimizar assets
