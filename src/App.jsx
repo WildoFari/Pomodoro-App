@@ -1,9 +1,11 @@
 import './App.css'
 import PomodoroTimer from './components/PomodoroTimer'
+import NotFound from './components/NotFound'
 import { PomodoroProvider } from './context/PomodoroContext'
 import SEO from './components/SEO'
 import { useEffect } from 'react'
 import { initializeAnalytics } from './utils/analytics'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   useEffect(() => {
@@ -22,9 +24,14 @@ function App() {
         url="https://tu-dominio.com/"
         image="https://tu-dominio.com/og-image.jpg"
       />
-      <div className='bg-white'>
-        <PomodoroTimer />
-      </div>
+      <Routes>
+        <Route path="/" element={
+          <div className='bg-white'>
+            <PomodoroTimer />
+          </div>
+        } />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </PomodoroProvider>
   )
 }

@@ -40,6 +40,10 @@ export default defineConfig({
   },
   // Preload de módulos críticos
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-icons']
+    include: ['react', 'react-dom', 'react-icons', 'react-router-dom']
+  },
+  // Configuración para SPA routing
+  preview: {
+    port: 3000
   }
 })
