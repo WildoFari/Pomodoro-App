@@ -86,12 +86,13 @@ export default function TaskList() {
 
       {/* Tarea actual destacada - compacta para móvil */}
       {currentTask && (
-        <div className="mb-3 sm:mb-6 p-2 sm:p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg">
+        <div className="mb-3 sm:mb-6 p-2 sm:p-4 bg-slate-50 border border-slate-200 text-slate-800 rounded-lg shadow-sm">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex-1">
-              <h3 className="text-sm sm:text-lg font-semibold">🎯 Actual</h3>
+                             <h3 className="text-sm sm:text-lg font-semibold text-slate-700">🎯 Actual</h3>
               <p className="text-xs sm:text-xl break-words">{currentTask.text}</p>
-              <p className="text-xs opacity-90 mt-1">
+              <p className="text-xs text-slate-600 mt-1 flex items-center gap-1">
+                <FaClock className="text-slate-400" />
                 {currentTask.completedPomodoros}/{currentTask.pomodoroCount} pomodoros
               </p>
             </div>
