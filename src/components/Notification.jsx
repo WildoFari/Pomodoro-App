@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Notification({ show, message, onClose }) {
+  const [countdown, setCountdown] = useState(10);
+
   useEffect(() => {
     if (show) {
       // Solicitar permisos de notificación si no están concedidos
@@ -22,12 +24,22 @@ export default function Notification({ show, message, onClose }) {
       const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
       audio.play().catch(e => console.log('No se pudo reproducir el audio:', e));
 
-      // Auto-cerrar después de 10 segundos (más tiempo para notificación grande)
-      const timer = setTimeout(() => {
-        onClose();
-      }, 10000);
+      // Resetear contador
+      setCountdown(10);
 
-      return () => clearTimeout(timer);
+      // Contador de cuenta regresiva
+      const countdownInterval = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            onClose();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(countdownInterval);
     }
   }, [show, message, onClose]);
 
@@ -67,7 +79,7 @@ export default function Notification({ show, message, onClose }) {
           
           {/* Contador de auto-cierre */}
           <p className="text-xs sm:text-sm text-green-200 mt-3 sm:mt-4">
-            Se cerrará automáticamente en 10 segundos
+            Se cerrará automáticamente en <span className="font-bold text-white">{countdown}</span> segundos
           </p>
         </div>
       </div>
