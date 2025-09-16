@@ -6,7 +6,8 @@ import {
   FaHome, 
   FaCog, 
   FaClipboardList,
-  FaPalette
+  FaPalette,
+  FaHourglassHalf
 } from 'react-icons/fa';
 import useTimer from '../hooks/useTimer';
 import useTasks from '../hooks/useTasks';
@@ -149,6 +150,16 @@ export default function PomodoroTimer() {
         {/* Temporizador gigante - optimizado para móvil */}
         <div className="flex flex-col items-center justify-center flex-1 px-4">
           <div className="text-center w-full">
+            {/* Reloj de arena animado */}
+            {isRunning && (
+              <div className="mb-4 sm:mb-6 md:mb-8 flex justify-center">
+                <FaHourglassHalf 
+                  className="text-4xl sm:text-5xl md:text-6xl text-white drop-shadow-lg animate-spin" 
+                  style={{ animationDuration: '3s' }}
+                />
+              </div>
+            )}
+            
             <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[12rem] font-mono font-bold text-white mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl leading-none">
               {formatTime(secondsLeft)}
             </div>
