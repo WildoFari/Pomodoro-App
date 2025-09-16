@@ -75,15 +75,15 @@ export default function PomodoroTimer() {
 
       <div className={`fixed inset-0 bg-gradient-to-br ${pomodoroColors.find(color => color.name === selectedColor)?.gradient || 'from-red-500 via-red-600 to-red-700'} flex flex-col items-center justify-center z-50 overflow-hidden`}>
         {/* Header minimalista - optimizado para móvil */}
-        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-center">
-          <div className="bg-black bg-opacity-30 backdrop-blur-sm rounded-lg px-3 py-2">
+        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-center sm:justify-between items-center">
+          <div className="hidden sm:block bg-black bg-opacity-30 backdrop-blur-sm rounded-lg px-3 py-2">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-lg">🍅 Pomodoro</h1>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Botón de pausar/reanudar */}
             <button 
               onClick={isRunning ? pause : start}
-              className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="text-white hover:bg-white hover:bg-opacity-20 p-5 sm:p-3 rounded-full transition-all duration-200 min-h-[80px] min-w-[80px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center"
             >
               {isRunning ? (
                 <FaPause className="text-lg sm:text-xl md:text-2xl" />
@@ -95,8 +95,7 @@ export default function PomodoroTimer() {
             {/* Botón para volver al inicio */}
             <button 
               onClick={reset}
-
-              className="text-white hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="text-white hover:bg-white hover:bg-opacity-20 p-5 sm:p-3 rounded-full transition-all duration-200 min-h-[80px] min-w-[80px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center"
               title="Volver al inicio"
             >
               <FaHome className="text-lg sm:text-xl md:text-2xl" />
@@ -106,7 +105,7 @@ export default function PomodoroTimer() {
             {/* Botón de cambiar color */}
             <button
               onClick={changeToNextColor}
-              className={`hover:bg-white hover:bg-opacity-20 p-2 sm:p-3 rounded-full transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center`}
+              className={`hover:bg-white hover:bg-opacity-20 p-5 sm:p-3 rounded-full transition-all duration-200 min-h-[80px] min-w-[80px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center`}
               style={{ 
                 backgroundColor: pomodoroColors.find(color => color.name === selectedColor)?.hex || '#ef4444',
                 color: 'white'
