@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaClock } from 'react-icons/fa';
+import { CheckCircle2 } from 'lucide-react';
 import useTasks from '../hooks/useTasks';
 
 export default function TaskList() {
@@ -268,7 +269,10 @@ export default function TaskList() {
       {/* Lista de tareas completadas - compacta para móvil */}
       {showCompleted && completedTasks.length > 0 && (
         <div className="border-t pt-3 sm:pt-4">
-          <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-700">✅ Completadas</h3>
+          <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-700 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+            Completadas
+          </h3>
           <div className="space-y-1 sm:space-y-2">
             {completedTasks.map((task) => (
               <div key={task.id} className="p-2 sm:p-3 bg-green-50 border border-green-200 rounded-lg">
