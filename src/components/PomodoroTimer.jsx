@@ -9,6 +9,7 @@ import {
   FaPalette,
   FaHourglassHalf
 } from 'react-icons/fa';
+import { Timer } from 'lucide-react';
 import useTimer from '../hooks/useTimer';
 import useTasks from '../hooks/useTasks';
 import { usePomodoroConfig } from '../context/PomodoroContext';
@@ -78,7 +79,10 @@ export default function PomodoroTimer() {
         {/* Header minimalista - optimizado para móvil */}
         <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-center sm:justify-between items-center">
           <div className="hidden sm:block bg-black bg-opacity-30 backdrop-blur-sm rounded-lg px-3 py-2">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-lg">🍅 Pomodoro</h1>
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-lg flex items-center gap-2">
+              <Timer className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />
+              Pomodoro
+            </h1>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Botón de pausar/reanudar */}
