@@ -1,49 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getRandomQuote, getQuoteByContext } from '../utils/motivationalQuotes';
+import * as LucideIcons from 'lucide-react';
 
-const MotivationalQuote = ({ context, className = "", showEmoji = true, autoChange = true, changeInterval = 10000, textColor = "text-gray-700" }) => {
-  const [quote, setQuote] = useState('');
+const MotivationalQuote = ({ context, className = "", showIcon = true, autoChange = true, changeInterval = 10000, textColor = "text-gray-700" }) => {
+  const [quote, setQuote] = useState({ text: '', icon: null });
   const [isVisible, setIsVisible] = useState(false);
 
-  const updateQuote = () => {
+  const updateQuote = useCallback(() => {
     setIsVisible(false);
     setTimeout(() => {
       const newQuote = context ? getQuoteByContext(context) : getRandomQuote();
       setQuote(newQuote);
       setIsVisible(true);
     }, 300);
-  };
+  }, [context]);
 
   useEffect(() => {
     updateQuote();
-  }, [context]);
+  }, [updateQuote]);
 
   useEffect(() => {
     if (!autoChange) return;
 
     const interval = setInterval(updateQuote, changeInterval);
     return () => clearInterval(interval);
-  }, [autoChange, changeInterval, context]);
+  }, [autoChange, changeInterval, updateQuote]);
 
-  // Separar el emoji del texto
-  const getQuoteParts = (quoteText) => {
-    // Buscar emoji al final de la frase
-    const emojiMatch = quoteText.match(/^(.+?)\s+([^\s]+)$/);
-    if (emojiMatch && showEmoji) {
-      const text = emojiMatch[1].trim();
-      const emoji = emojiMatch[2].trim();
-      // Verificar si el último elemento es realmente un emoji
-      if (emoji.length <= 4 && /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u.test(emoji)) {
-        return { emoji, text };
-      }
-    }
-    return {
-      emoji: null,
-      text: quoteText
-    };
+  // Obtener el componente de icono de Lucide
+  const getIconComponent = (iconName) => {
+    if (!iconName || !LucideIcons[iconName]) return null;
+    return LucideIcons[iconName];
   };
 
-  const { emoji, text } = getQuoteParts(quote);
+  const IconComponent = getIconComponent(quote.icon);
 
   return (
     <div className={`text-center ${className}`}>
@@ -52,17 +41,17 @@ const MotivationalQuote = ({ context, className = "", showEmoji = true, autoChan
           isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-2'
         }`}
       >
-        {showEmoji && emoji && (
-          <div className="text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 animate-pulse">
-            {emoji}
+        {showIcon && IconComponent && (
+          <div className="flex justify-center mb-2 sm:mb-3">
+            <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-500 animate-pulse" />
           </div>
         )}
         <p className={`text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-relaxed italic ${textColor} px-2`}>
-          "{text}"
+          "{quote.text}"
         </p>
-        {showEmoji && emoji && (
-          <div className="text-base sm:text-lg md:text-xl mt-1 sm:mt-2 opacity-60">
-            {emoji}
+        {showIcon && IconComponent && (
+          <div className="flex justify-center mt-1 sm:mt-2 opacity-60">
+            <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500" />
           </div>
         )}
       </div>
