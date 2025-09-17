@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaClock } from 'react-icons/fa';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Trash, Trash2 } from 'lucide-react';
 import useTasks from '../hooks/useTasks';
 
 export default function TaskList() {
@@ -269,10 +269,20 @@ export default function TaskList() {
       {/* Lista de tareas completadas - compacta para móvil */}
       {showCompleted && completedTasks.length > 0 && (
         <div className="border-t pt-3 sm:pt-4">
-          <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-700 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-            Completadas
-          </h3>
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <h3 className="text-sm sm:text-lg font-semibold text-gray-700 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+              Completadas
+            </h3>
+            <button
+              onClick={clearCompleted}
+              className="inline-flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-red-500 text-white text-xs sm:text-sm hover:bg-red-600 transition-colors"
+              title="Borrar todas"
+            >
+              <Trash className="w-4 h-4" />
+              <span className="hidden sm:inline">Borrar todo</span>
+            </button>
+          </div>
           <div className="space-y-1 sm:space-y-2">
             {completedTasks.map((task) => (
               <div key={task.id} className="p-2 sm:p-3 bg-green-50 border border-green-200 rounded-lg">
@@ -283,9 +293,18 @@ export default function TaskList() {
                       {new Date(task.completedAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="text-xs text-green-600 whitespace-nowrap">
-                    {task.completedPomodoros} pomodoros
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-green-600 whitespace-nowrap">
+                      {task.completedPomodoros} pomodoros
+                    </span>
+                    <button
+                      onClick={() => removeTask(task.id)}
+                      className="inline-flex items-center justify-center p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                      title="Borrar"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
